@@ -1,0 +1,95 @@
+#
+# Work memo: build PIL Package for AWS Lambda
+#
+#
+# build procedure (Summary version)
+#
+# (1)install Docker on Ubuntu OS
+# (2)run Amazon Linux container on Docker env
+# (3)do the following in Amazon Linux env
+#
+#   3-1 install Python3  (now Version 3.7.4 is available)
+#   3-2 install pillow package with pip command
+#   3-3 make pillow package by zip command  (file:pillow_pkg_YYMMDD.zip)
+#   3-4 exit form Amazon Linux
+# (4)return to Ubuntu OS, and check the created package file
+#
+# You regist PIL package to AWS Lambda
+#
+# PIL package can be used from Lambda program by 
+# registering in AWS Lambda Layers
+
+#----------------------------------------------------------------------
+#
+# build procedure (detail)
+#
+#----------------------------------------------------------------------
+
+#
+# do the following in Ubuntu OS
+#
+sudo apt-get  install docker      # create docker env
+mkdir ~/mypackage                 # make folder which is
+                                  # mounted by docker container
+
+# create Amazon Linux container on Docker env
+sudo docker run -ti -v ~/mypackage:/mypackage amazonlinux:latest
+
+
+#
+# do the following command in Amazon Linux conteiner on Docker 
+# execute previous command, you can enter the amazon linux container automatically
+#
+#
+#-----------execute in amazon linux container -----------------------------------
+#
+cat /etc/os-release    # Make sure you are in the Amazon Linux Env
+                       #
+                       # Message example 
+                       #
+                       # NAME="Amazon Linux"
+                       # VERSION="2"
+                       # ID="amzn"
+                       # ID_LIKE="centos rhel fedora"
+                       # VERSION_ID="2"
+                       # PRETTY_NAME="Amazon Linux 2"
+                       # ANSI_COLOR="0;33"
+                       # CPE_NAME="cpe:2.3:o:amazon:amazon_linux:2"
+                       # HOME_URL="https://amazonlinux.com/"
+
+
+yum install python3    # install python3 package
+python3 --version      # check python version
+                       # Python 3.7.4
+
+cd /mypackage
+pip3 install Pillow -t /mypackage          # install Pillow package
+ls /mypackage                              # check /mypackage filder
+                                           # at 2020/2/09, installed Pillow-7.0.0 
+                                           # Pillow-7.0.0.dist-info python
+mkdir python                               # make directory for PIL package
+mv PIL  python                             # move PIL directory to python directory
+mv  Pillow-7.0.0.dist-info python          # move Pillow-7.0.0.dist-info directory to python directory
+                                           # folder name will be changed 
+ls /mypackage/python                       # check files in python directory
+                                           # at 2020/2/9, existing following files
+                                           # PIL  Pillow-7.0.0.dist-info
+yum install zip                            # install zip package for archive
+zip -r pillow_pkg_200209.zip python/       # archive files in python dictory
+exit               　　　　　　　          # exit form Amazon Linux , retuen to Ubuntu OS
+
+#
+#-------------work in Amazon Linux ends here ------------------------------------
+#
+
+ls ~/mypackage            # check ZIP File (pillow_pkg_200209.zip)  exists in Ubuntu OS
+
+# PIL package can be used from Lambda program by 
+# registering in AWS Lambda Layers
+
+# Upload the PIL Package (pillow_pkg_200209.zip) to AWS Lambda Layer
+# you can import PIL package in Python Lambda function
+
+
+# pillow_pkg_190923.zip ...  Pyton3.7    Pillow-6.1.0
+# pillow_pkg_200209.zip .... Pyton3.7    Pillow-7.0.0

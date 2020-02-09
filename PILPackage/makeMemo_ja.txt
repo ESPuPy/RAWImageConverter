@@ -76,7 +76,7 @@ ls ~/mypackage            # pillo_pkg_200209.zip  がUbuntu環境に存在する
 # 上記の手順で作成された、pillow_pkg_200209.zipはGITにアップしておきますのでお使いください。
 
 
-
+# Ubuntu環境は、Amazon EC2/ECS/LightSailの利用、または、ローカルPC上にVMwareとUbuntuをインストールして構築してください。
 
 # pillow_pkg_190923.zip ...  Pyton3.7    Pillow-6.1.0
 # pillow_pkg_200209.zip .... Pyton3.7    Pillow-7.0.0

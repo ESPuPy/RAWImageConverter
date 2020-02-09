@@ -1,0 +1,82 @@
+#
+# 作業メモ： AWS Lambda用のPILパッケージを構築する
+#
+#
+# 作業手順：
+#
+# (1)Ubuntu環境内でDockerをインストールする
+# (2)Docker上に Amazon Linuxのコンテナを構築
+# (3)Amazon Linux環境内で以下の作業を実施
+#
+#   3-1 Python3をインストール (Version 3.7.4が入る)
+#   3-2 pipコマンドでpillowパッケージをインストール
+#   3-3 pillowパッケージをZIP圧縮(file:pillow_pkg_YYMMDD.zip)
+#   3-4 Amazon Linuxから抜ける
+# (4)Ubuntu環境に戻り、パッケージが生成されたことを確認
+#
+# 生成したPILパッケージはAWS LambdaのLayersに登録することで
+# Python版Lambdaプログラムから利用可能になります
+
+#
+# 以下はUbuntu環境で作業
+#
+sudo apt-get  install docker      # docker 環境を構築
+mkdir ~/mypackage                 # dockerコンテナがマウントする
+                                  # フォルダを用意
+
+# docker上にamazon linuxを構築
+sudo docker run -ti -v ~/mypackage:/mypackage amazonlinux:latest
+
+# 以下はdocker環境で起動したamazon linux内でのコマンド実行
+# 上記コマンドでamazon linuxを起動すると自動的にログインされます
+
+#
+#-----------docker 内コンテナ作業ここから -----------------------------------
+#
+cat /etc/os-release    # Amazon Linux内にいることを確認
+                       #
+                       # 以下表示例 
+                       # NAME="Amazon Linux"
+                       # VERSION="2"
+                       # ID="amzn"
+                       # ID_LIKE="centos rhel fedora"
+                       # VERSION_ID="2"
+                       # PRETTY_NAME="Amazon Linux 2"
+                       # ANSI_COLOR="0;33"
+                       # CPE_NAME="cpe:2.3:o:amazon:amazon_linux:2"
+                       # HOME_URL="https://amazonlinux.com/"
+
+
+yum install python3    # yumコマンドでpython3 packageをインストール
+python3 --version      # check python version
+                       # Python 3.7.4
+
+cd /mypackage
+pip3 install Pillow -t /mypackage          # python3用のpip(pip3)を用いてPillowをインストール
+ls /mypackage                              # /mypackage 内を確認
+                                           # 2020/2/09の時点では、Pillow-7.0.0がインストールされる 　　　　　　　　　　　　　　　　　　
+                                           # Pillow-7.0.0.dist-info python
+mkdir python                               # パッケージ作成用ディレクトリを作成
+mv PIL  python                             # PILディレクトリ以下を pythonディレクトリに移動
+mv  Pillow-7.0.0.dist-info python          # Pillow-7.0.0.dist-info ディレクトリ以下を pythonディレクトリに移動
+                                           # バージョン名は作業時点により変わります
+ls /mypackage/python                       # pythonディレクトリ配下のファイル類を確認
+                                           # 2020/2/9作業時では以下
+                                           # PIL  Pillow-7.0.0.dist-info
+yum install zip                            # ZIP圧縮するためZIPパッケージをインストール
+zip -r pillow_pkg_200209.zip python/       # zipコマンドでpython以下を圧縮  
+exit               　　　　　　　          # amazonlinux環境から抜けてUbuntu環境に戻る
+--------------------------------docker内 コンテナ作業ここまで -----------------------------------------
+
+ls ~/mypackage            # pillo_pkg_200209.zip  がUbuntu環境に存在することを確認
+
+
+# 作成されたZIPファイル(pillow_pkg_190923.zip)をAWSにアップロードして
+# Lambda　Layerに登録する。作業終わり
+# 上記の手順で作成された、pillow_pkg_200209.zipはGITにアップしておきますのでお使いください。
+
+
+
+
+# pillow_pkg_190923.zip ...  Pyton3.7    Pillow-6.1.0
+# pillow_pkg_200209.zip .... Pyton3.7    Pillow-7.0.0

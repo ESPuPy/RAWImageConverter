@@ -1,4 +1,4 @@
-AWS Lambda用PILパッケージ
+# AWS Lambda(python)用PILパッケージ
 
 AWS Lambda上でPILライブラリが使えるようにPILパッケージを作成しました。
 現在２種類のPILパッケージをGitHubに登録しており自由にお使いください。

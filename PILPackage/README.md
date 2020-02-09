@@ -1,4 +1,4 @@
-# PIL Packages for AWS Lambda Function (python)
+# PIL Packages for AWS Lambda Function (Python)
 
 I build PIL Package for AWS Lambda. Following packages are avaiable.
 

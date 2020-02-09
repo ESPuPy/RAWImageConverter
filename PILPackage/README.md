@@ -7,6 +7,7 @@ I build PIL Package for AWS Lambda. Following packages are avaiable.
 
 a package create process was described following memo.
 
-[makeMemo_ja.txt](makeMemo_ja.txt)   (only Japanese)
+[makeMemo.txt](makeMemo.txt)   (English version)
+[makeMemo_ja.txt](makeMemo_ja.txt)   (Japanese Version)
 
 thanks. 

@@ -1,4 +1,4 @@
-# PIL Packages for AWS Lambda
+# PIL Packages for AWS Lambda Function (python)
 
 I build PIL Package for AWS Lambda. Following packages are avaiable.
 
@@ -7,7 +7,7 @@ I build PIL Package for AWS Lambda. Following packages are avaiable.
 
 a package create process was described following memo.
 
-[makeMemo.txt](makeMemo.txt)   (English version)
-[makeMemo_ja.txt](makeMemo_ja.txt)   (Japanese Version)
+- [makeMemo.txt](makeMemo.txt)   (English version)
+- [makeMemo_ja.txt](makeMemo_ja.txt)   (Japanese Version)
 
 thanks. 

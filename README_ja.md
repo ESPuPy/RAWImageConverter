@@ -14,6 +14,9 @@ AWS Lambdaの設定手順が複雑なため、設定手順を以下にまとめ�
 
 converRawToJPG.pyを実行する上で画像変換ライブラリ(PIL)が必要です。AWS Lambda環境で使えるPILパッケージを作りました。以下から取得してください。<br>
 [PILPackage/](PILPackage/)
+以下２種類のバージョンを置いています。
+1. [pillow_pkg_190923.zip](PILPackage/pillow_pkg_190923.zip)  テスト済み版（2020/2/22の時点ではPILパッケージバージョンが古くなっています）
+1. [pillow_pkg_200209.zip](PILPackage/pillow_pkg_200209.zip)  未テスト版(2020/2/9時点での最新版ですがテスト未実施です)
 
 本システムの概要説明は、[Interface 2020 4月号](https://interface.cqpub.co.jp/magazine/202004/) Appendix-4 pp.90-95にも記載しています。併せてご参照ください。
 

@@ -10,7 +10,7 @@ RAW画像変換サービス(RAW Image Conver)は RAW形式の画像をJPEG形式
 <img src="fig/image_converter_process_flow_ja.png" width=700>
 
 
-RAW Image Converterは以下２種類のLabmda関数で実現しています。
+RAW Image Converterは以下２種類のLambda関数で実現しています。
 1. [uploader.py](src/uploader.py)<br>WebAPIを提供するとともに、アップロードされたRAW形式画像をS3に保存します
 1. [convertRawToJPG.py](src/convertRawToJPG.py)<br>RAW形式画像をS3から取得してJPEG画像に変換しS3に保存します。<br>S3に保存された画像を参照するためのURLをSNS (Amazon Simple Notofication Service)を用いてユーザにメール連絡します
 

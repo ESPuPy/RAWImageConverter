@@ -7,7 +7,7 @@ RAW画像変換サービス(RAW Image Conver)は RAW形式の画像をJPEG形式
 
 本サービスは AWS Lambda Functionsで実装されています。処理フローを以下に示します。
 
-<img src="fig/image_converter_process_flow_ja.png" width=600>
+<img src="fig/image_converter_process_flow_ja.png" width=700>
 
 
 RAW Image Converterは以下２種類のLabmda関数で実現しています。
